@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elixir de Limpeza</title>
+
+</head>
+
+<style>
+    @media (max-width: 768px) {
+        .texto-agorasou-section h1 {
+            font-size: 28px;
+
+            justify-content: center;
+            align-items: center;
+        }
+
+        .Sub-texto {
+            font-size: 16px;
+        }
+
+        .texto-agorasou-section p,
+        .descricao-produto ul,
+        .descricao-produto {
+            font-size: 14px;
+        }
+
+        .botao-comprar-mobile {
+            font-size: 14px;
+            padding: 12px 30px;
+        }
+
+        .botao-confira {
+            font-size: 14px;
+            padding: 8px 18px;
+        }
+
+        .container-banner-mercadolivre {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .banner-produtos-mercadolivre {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-top: -30px;
+        }
+
+        .descricao-produto-mercadolivre {
+            margin-top: -90px;
+            position: relative;
+            left: -94px;
+        }
+
+        .titulo-desconto-mercadolivre {
+            font-size: 13px !important;
+            font-weight: bold;
+            margin-top: -90px;
+
+        }
+
+        .observacao-desconto-mercadolivre {
+            font-size: 9px !important;
+            padding: 10px;
+            color: #555;
+            line-height: 1.4;
+            margin-top: -90px;
+            position: relative;
+            bottom: -100px;
+        }
+
+        .botoes-mercadolivre {
+            margin-top: -20px;
+            margin-left: -10px;
+            position: relative;
+            left: -90px;
+            top: -15px;
+        }
+
+        .botao-comprar-mercadolivre {
+            background-color: #fff01e;
+            color: #000;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 10px !important;
+        }
+
+        /* CArrossel*/
+
+        .linha-pistache {
+            padding: 40px 20px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .linha-pistache h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .produtos-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            gap: 16px;
+            padding: 10px 0;
+            margin-top: 40px;
+        }
+
+        .produto {
+            min-width: 250px;
+            max-width: 250px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            padding: 16px;
+            scroll-snap-align: start;
+            flex: 0 0 auto;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .produto img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .produto p {
+            font-size: 12px;
+            color: #555;
+            margin: 5px 0;
+        }
+
+        .produto strong {
+            font-size: 14px;
+            display: block;
+            margin: 5px 0 10px;
+        }
+
+        .produto button {
+            background-color: #62c58d;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .modal-content {
+            width: 90%;
+            padding: 18px;
+        }
+
+        .opcoes-lojas {
+            gap: 12px;
+        }
+
+        .opcoes-lojas img {
+            max-width: 100px;
+        }
+
+        .fechar-modal {
+            font-size: 24px;
+        }
+
+
+
+
+    }
+
+    @media (max-width: 480px) {
+        .paragrago-texto-desktop {
+            display: none;
+        }
+
+        .texto-agorasou-section h1 {
+            font-size: 24px;
+        }
+
+        .Sub-texto {
+            font-size: 14px;
+        }
+
+        .botao-comprar-mobile {
+            font-size: 12px;
+            padding: 17px 12px;
+        }
+
+        .descricao-produto h2 {
+            font-size: 18px;
+        }
+
+        .descricao-produto ul {
+            padding-left: 16px;
+        }
+
+        .titulo-desconto-mercadolivre {
+            font-size: 18px;
+        }
+
+        .observacao-desconto-mercadolivre {
+            font-size: 13px;
+
+        }
+
+        .botao-comprar-mercadolivre {
+            font-size: 13px;
+            padding: 10px 20px;
+        }
+    }
+
+
+    /* ============================= */
+    /* MODAL DE OPÇÕES DE COMPRA    */
+    /* ============================= */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(6px);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        padding: 24px;
+        width: 95%;
+        max-width: 360px;
+        border-radius: 20px;
+        text-align: center;
+        animation: fadeInCenter 0.4s ease;
+        color: white;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(8px);
+        background: rgba(0, 0, 0, 0.65);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-blend-mode: overlay;
+    }
+
+    @keyframes fadeInCenter {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        to {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+
+    .fechar-modal {
+        position: absolute;
+        top: 12px;
+        right: 18px;
+        font-size: 26px;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .modal-content h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+        line-height: 1.4;
+        color: #fff;
+    }
+
+    .opcoes-lojas {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .opcoes-lojas a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 120px;
+        padding: 12px;
+        border: 2px solid white;
+        border-radius: 12px;
+        background-color: rgba(255, 255, 255, 0.1);
+        text-decoration: none;
+        color: white;
+        transition: all 0.3s ease;
+    }
+
+    .opcoes-lojas a:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+        transform: scale(1.05);
+    }
+
+    .opcoes-lojas img {
+        max-width: 50px;
+        height: auto;
+        margin-bottom: 6px;
+    }
+
+    /* TABLET (≤768px) */
+    @media only screen and (max-width: 768px) {
+        .modal-content {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            width: 90%;
+        }
+
+        .fechar-modal {
+            font-size: 22px;
+            top: 10px;
+            right: 15px;
+        }
+
+        .opcoes-lojas a {
+            width: 100%;
+            max-width: 260px;
+        }
+
+        .opcoes-lojas img {
+            max-width: 45px;
+        }
+    }
+
+    /* MOBILE (≤480px) */
+    @media only screen and (max-width: 480px) {
+        .modal-content {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 9px;
+            width: 75%;
+        }
+
+        .fechar-modal {
+            font-size: 20px;
+            top: 8px;
+            right: 12px;
+        }
+
+        .opcoes-lojas a {
+            width: 100%;
+            max-width: 240px;
+        }
+
+        .opcoes-lojas img {
+            max-width: 40px;
+        }
+    }
+
+    /* FOOOTER */
+    .footer-mobile {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        font-family: sans-serif;
+    }
+
+    .footer-bg {
+        position: relative;
+        width: 100%;
+    }
+
+    .footer-bg img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .footer-center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        text-align: center;
+        text-shadow: 0 0 5px #000;
+    }
+
+    .footer-center h2 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* Se necessário, corta com "..." */
+        font-size: 1rem;
+        /* Diminui para caber em telas menores */
+    }
+
+    .footer-center p {
+        font-size: 14px;
+        margin: 0;
+        opacity: 0.8;
+    }
+</style>
+<style>
+    .container-banner-agorasou {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+
+    }
+
+    .elixir-img-mobile {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-width: 400px;
+
+    }
+
+    .texto-elixir-mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: -220px;
+        ;
+    }
+
+    .marca-agorasou {
+        color: #d2007f;
+        font-weight: 100;
+        font-size: 12px;
+        position: relative;
+        left: 60px;
+    }
+
+    .titulo-elixir {
+        position: relative;
+        left: 60px;
+        font-size: 16px;
+        font-weight: 900;
+        color: #000;
+        margin: 5px 0;
+    }
+
+    .subtitulo-elixir {
+        font-size: 15px;
+        color: #444;
+        margin: 0px 0 10px;
+        position: relative;
+        left: 60px;
+    }
+
+    .botao-comprar-mobile {
+        background-color: #3cb179;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: 14px;
+        text-decoration: none;
+        transition: background 0.3s ease;
+        position: relative;
+        left: 60px;
+    }
+
+    .botao-comprar-mobile:hover {
+        background-color: #349c6a;
+    }
+</style>
+
+<body>
+
+
+
+    <section class="container-banner-agorasou">
+
+        <img src="ElixirPageLimpeza.png" alt="Banner Mobile" class="elixir-img-mobile" />
+
+        <div class="texto-elixir-mobile">
+            <span class="marca-agorasou">AGORASOU</span>
+            <h1 class="titulo-elixir">ELIXIR DE NUTRIÇÃO</h1>
+            <p class="subtitulo-elixir">NUTRIÇÃO PROFUNDA
+            </p>
+
+            <a href="javascript:void(0)" onclick="scrollParaProdutos()" class="botao-comprar-mobile">
+                COMPRAR AGORA
+            </a>
+            <a href="PageInicial.html" class="botao-voltar-mobile">VOLTAR</a>
+        </div>
+    </section>
+    <style>
+        .botao-voltar-mobile {
+            background-color: #fff;
+            color: #3cb179;
+            border: 2px solid #3cb179;
+            padding: 10px 24px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 10px;
+            text-decoration: none;
+            margin-top: 12px;
+            display: inline-block;
+            transition: background 0.3s, color 0.3s;
+            position: relative;
+            left: 120px;
+            top: -200px;
+        }
+
+        .botao-voltar-mobile:hover {
+            background-color: #3cb179;
+            color: #fff;
+        }
+    </style>
+    <div class="elixir-titulo-centro">
+        <p class="elixir-subtitulo">SINTA O PODER DA NUTRIÇÃO PROFUNDA</p>
+    </div>
+    <style>
+        .elixir-titulo-centro {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            margin-top: 80px;
+            text-align: center;
+        }
+
+        .elixir-subtitulo {
+            font-size: 1.1rem;
+            color: #3cb179;
+            font-weight: 500;
+            letter-spacing: 1px;
+            position: relative;
+            top: 80px;
+        }
+
+        @media (max-width: 480px) {
+            .elixir-titulo-centro {
+                margin-top: 50px;
+            }
+
+            .elixir-titulo-centro h1 {
+                font-size: 1.4rem;
+            }
+
+            .elixir-subtitulo {
+                font-size: 1rem;
+            }
+        }
+    </style>
+
+
+    <section class="carousel-mobile">
+        <div class="carousel-track">
+            <img src="ElixirPageLimpeza.png" alt="Produto 1">
+            <img src="ElixirPageLimpeza.png" alt="Produto 1">
+            <img src="ElixirPageLimpeza.png" alt="Produto 1">
+            <img src="ElixirPageLimpeza.png" alt="Produto 1">
+        </div>
+
+        <style>
+            .carousel-mobile {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 0px;
+                display: flex;
+                margin-top: 50px;
+            }
+
+            .carousel-track {
+                display: inline-flex;
+                gap: 12px;
+            }
+
+            .carousel-track img {
+                width: 240px;
+                height: auto;
+                border-radius: 8px;
+                flex-shrink: 0;
+                object-fit: cover;
+            }
+
+            /* Esconde a barra de rolagem */
+            .carousel-mobile::-webkit-scrollbar {
+                display: none;
+            }
+
+            .carousel-mobile {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        </style>
+    </section>
+    <section style="padding: 10px; font-family: Arial, sans-serif; max-width: 600px; margin: auto; margin-top: 50px;">
+
+        <!-- Accordion Geral -->
+        <section class="accordion" style="border-top: 1px solid #ccc; margin-top: '900px';">
+
+            <!-- Item 1: Benefícios -->
+            <section class="accordion-item" style="border-bottom: 1px solid #ccc; margin-bottom: 10px;">
+                <div class="accordion-header" onclick="toggleAccordion(this)"
+                    style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 10px 0;">
+                    <strong>Benefícios</strong> <span style="font-weight: bold;">+</span>
+                </div>
+                <div class="accordion-content" style="display: none; padding: 10px;">
+                    <ul style="padding-left: 20px; margin: 0;">
+                        <li>Limpeza profunda que remove impurezas sem agredir os fios ou o couro cabeludo.</li>
+                        <li>Disciplina e controle do frizz desde a primeira aplicação.</li>
+                        <li>Brilho intenso e duradouro com efeito de salão.</li>
+                        <li>Barreira protetora invisível contra umidade e agressões externas.</li>
+                        <li>Resultados comprovados por até 1 semana, mantendo os fios alinhados e maleáveis.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Item 2: Indicação -->
+            <section class="accordion-item" style="border-bottom: 1px solid #ccc; margin-bottom: 10px;">
+                <div class="accordion-header" onclick="toggleAccordion(this)"
+                    style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 10px 0;">
+                    <strong>Indicação</strong> <span style="font-weight: bold;">+</span>
+                </div>
+                <div class="accordion-content" style="display: none; padding: 10px;">
+                    <p>Indicado para cabelos danificados, com frizz ou após processos químicos.</p>
+                </div>
+            </section>
+
+            <!-- Item 3: Modo de Uso -->
+            <section class="accordion-item" style="border-bottom: 1px solid #ccc; margin-bottom: 10px;">
+                <div class="accordion-header" onclick="toggleAccordion(this)"
+                    style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 10px 0;">
+                    <strong>Modo de Uso</strong> <span style="font-weight: bold;">+</span>
+                </div>
+                <div class="accordion-content" style="display: none; padding: 10px;">
+                    <p>Aplique nos cabelos úmidos, massageie suavemente e enxágue. Repita se necessário.</p>
+                </div>
+            </section>
+
+            <!-- Item 4: Ingredientes -->
+            <section class="accordion-item" style="border-bottom: 1px solid #ccc; margin-bottom: 10px;">
+                <div class="accordion-header" onclick="toggleAccordion(this)"
+                    style="display: flex; justify-content: space-between; align-items: center; cursor: pointer; padding: 10px 0;">
+                    <strong>Ingredientes</strong> <span style="font-weight: bold;">+</span>
+                </div>
+                <div class="accordion-content" style="display: none; padding: 10px;">
+                    <p>Aqua, Glycerin, Helianthus Annuus Oil, Ozonized Oil, Fragrance, etc.</p>
+                </div>
+            </section>
+
+        </section>
+    </section>
+
+    <script>
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const isOpen = content.style.display === "block";
+            content.style.display = isOpen ? "none" : "block";
+            header.querySelector("span").textContent = isOpen ? "+" : "−";
+        }
+    </script>
+
+
+    <div style="display: flex; flex-direction: column; align-items: center; margin-top: 10px;">
+        <h1 style="font-size: 18px; color: #3cb179; font-weight: bold; margin-bottom: 8px; text-align: center;">
+            Conheça nossa linha completa
+        </h1>
+        <p style="font-size: 40px; color: #555; margin: 0; text-align: center;">
+            Linha Longo Pistache
+        </p>
+    </div>
+
+    <section class="linha-pistache">
+
+        <div class="produtos-container">
+
+            <div class="produto" id="produtos-pistache-kit">
+                <img src="https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/KITVENDAPISTACHEMOBILE.png?raw=true"
+                    alt="Kit Pistache">
+                <p>AGORASOU</p>
+                <strong>Linha longo Pistache Kit Completo Crescimento</strong>
+                <button onclick="abrirModal('kit')" style="background-color: green;">COMPRAR PRODUTO</button>
+            </div>
+
+            <div class="produto">
+                <img src="https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ELIXIRLIMPEZAMOBILEATUALVENDA.png?raw=true"
+                    alt="Elixir de Limpeza">
+                <p>AGORASOU</p>
+                <strong>Linha longo Pistache Elixir de Limpeza AgoraSou</strong>
+                <button onclick="abrirModal('elixir-limpeza') " style="background-color: green;">COMPRAR
+                    PRODUTO</button>
+            </div>
+
+            <div class="produto">
+                <img src="https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ELIXIRNUTRICAOMOBILEATUALVENDA.png?raw=true"
+                    alt="Elixir de Nutrição">
+                <p>AGORASOU</p>
+                <strong>Linha longo Pistache Elixir de Nutrição AgoraSou</strong>
+                <button onclick="abrirModal('elixir-nutricao')" style="background-color: green;">COMPRAR
+                    PRODUTO</button>
+            </div>
+
+            <div class="produto">
+                <img src="https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/LOCAOMOBILEATUALVENDA.png?raw=true"
+                    alt="Tônico de Crescimento">
+                <p>AGORASOU</p>
+                <strong>Linha longo Pistache Tônico de Crescimento</strong>
+                <button onclick="abrirModal('tonico')" style="background-color: green;">COMPRAR PRODUTO</button>
+            </div>
+
+
+
+        </div>
+    </section>
+
+    <!-- Modal Dinâmico -->
+    <div id="modal-compra" class="modal">
+        <div class="modal-content">
+            <span class="fechar-modal" onclick="fecharModal()">&times;</span>
+            <h3 id="titulo-produto"></h3>
+            <div class="opcoes-lojas" id="links-lojas">
+                <!-- Links injetados dinamicamente -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const dadosProdutos = {
+            "elixir-limpeza": {
+                titulo: "Elixir De Limpeza<br><span style='font-weight: 300; color: white;'>LINHA LONGO </span><strong style='font-weight: 700; color: #96db95;'>PISTACHE</strong><div style='margin-top: 4px;'><hr style='width: 274px; border: 0.5px solid #939393;'></div><div style='margin-top: 8px; font-weight: 400; color: white;'>Escolher um parceiro de venda!</div><div style='margin-top: 4px; font-weight: 300; color: #ccc;'></div>",
+                imagemFundo: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ELIXIRLIMPEZAMOBILEATUALVENDA.png",
+                links: [
+                    {
+                        "nome": "Agora Sou",
+                        "url": "https://agorasou.com",
+                        "img": "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/AgorasouLOGOMODAL.png"
+                    },
+                    {
+                        "nome": "Mercado Livre",
+                        "url": "https://mercadolivre.com",
+                        "img": "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/MercadoLivreLOGOMODAL.png"
+                    },
+                    {
+                        "nome": "Shopee",
+                        "url": "https://shopee.com",
+                        "img": "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ShooppeLOGOMODAL.png"
+                    }
+                ]
+            },
+
+
+            "elixir-nutricao": {
+                titulo: "Elixir De Nutrição<br><span style='font-weight: 300; color: white;'>LINHA LONGO </span><strong style='font-weight: 700; color: #96db95;'>PISTACHE</strong><div style='margin-top: 4px;'><hr style='width: 274px; border: 0.5px solid #939393;'></div><div style='margin-top: 8px; font-weight: 400; color: white;'>Escolher um parceiro de venda!</div><div style='margin-top: 4px; font-weight: 300; color: #ccc;'></div>",
+                imagemFundo: "https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ELIXIRNUTRICAOMOBILEATUALVENDA.png?raw=true",
+                links: [
+                    {
+                        nome: "Agora Sou",
+                        url: "https://agorasou.com",
+                        img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/AgorasouLOGOMODAL.png"
+                    },
+
+                    {
+                        nome: "Mercado Livre",
+                        url: "https://mercadolivre.com",
+                        img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/MercadoLivreLOGOMODAL.png"
+                    },
+
+                    {
+                        nome: "Shopee",
+                        url: "https://shopee.com",
+                        img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ShooppeLOGOMODAL.png"
+                    }
+                ]
+            },
+
+            "tonico": {
+                titulo: "Tônico de Crescimento<br><span style='font-weight: 300; color: white;'>LINHA LONGO </span><strong style='font-weight: 700; color: #96db95;'>PISTACHE</strong><div style='margin-top: 4px;'><hr style='width: 274px; border: 0.5px solid #939393;'></div><div style='margin-top: 8px; font-weight: 400; color: white;'>Escolher um parceiro de venda!</div><div style='margin-top: 4px; font-weight: 300; color: #ccc;'></div>",
+                imagemFundo: "https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/LOCAOMOBILEATUALVENDA.png?raw=true",
+                links: [
+                    {
+                        nome: "Agora Sou",
+                        url: "https://agorasou.com",
+                        img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/AgorasouLOGOMODAL.png"
+                    },
+
+                    {
+                        nome: "Mercado Livre",
+                        url: "https://mercadolivre.com",
+                        img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/MercadoLivreLOGOMODAL.png"
+                    },
+
+                    {
+                        nome: "Shopee",
+                        url: "https://shopee.com",
+                        img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ShooppeLOGOMODAL.png"
+                    }
+                ]
+            },
+
+            "kit": {
+                titulo: "Kit Linha Cresimento<br><span style='font-weight: 300; color: white;'>LINHA LONGO </span><strong style='font-weight: 700; color: #96db95;'>PISTACHE</strong><div style='margin-top: 4px;'><hr style='width: 274px; border: 0.5px solid #939393;'></div><div style='margin-top: 8px; font-weight: 400; color: white;'>Escolher um parceiro de venda!</div><div style='margin-top: 4px; font-weight: 300; color: #ccc;'></div>",
+                imagemFundo: "https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/KITVENDAPISTACHEMOBILE.png?raw=true",
+                links: [
+                    {
+                        nome: "Agora Sou",
+                        url: "https://agorasou.com",
+                        img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/AgorasouLOGOMODAL.png"
+                    },
+
+                    {
+                        nome: "Mercado Livre",
+                        url: "https://mercadolivre.com",
+                        img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/MercadoLivreLOGOMODAL.png"
+                    },
+
+                    {
+                        nome: "Shopee",
+                        url: "https://shopee.com",
+                        img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ShooppeLOGOMODAL.png"
+                    }
+                ]
+            },
+            // Adicione os demais produtos aqui com imagemFundo também
+        };
+
+        function abrirModal(idProduto) {
+            const modal = document.getElementById("modal-compra");
+            const titulo = document.getElementById("titulo-produto");
+            const linksContainer = document.getElementById("links-lojas");
+            const modalContent = document.querySelector(".modal-content");
+
+            const produto = dadosProdutos[idProduto];
+            titulo.innerHTML = produto.titulo;
+            linksContainer.innerHTML = "";
+
+            modalContent.style.background = `rgba(0, 0, 0, 0.65) url('${produto.imagemFundo}') center/cover no-repeat`;
+            modalContent.style.backgroundBlendMode = "overlay";
+
+            produto.links.forEach(link => {
+                const a = document.createElement("a");
+                a.href = link.url;
+                a.target = "_blank";
+
+                const img = document.createElement("img");
+                img.src = link.img;
+                img.alt = link.nome;
+
+                const nome = document.createElement("span");
+                nome.innerText = link.nome;
+                nome.style.color = "#fff";
+                nome.style.display = "block";
+                nome.style.marginTop = "6px";
+                nome.style.fontWeight = "500";
+
+                a.appendChild(img);
+                a.appendChild(nome);
+                linksContainer.appendChild(a);
+            });
+
+            modal.style.display = "block";
+        }
+
+        function fecharModal() {
+            document.getElementById("modal-compra").style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById("modal-compra");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
+
+
+    <section class="footer-mobile">
+        <div class="footer-bg">
+            <img src="https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/footerMobileAtual.png?raw=true"
+                alt="AGORASOU Footer">
+            <div class="footer-center">
+                <h2>A BELEZA QUE REFLETE SUA ESSÊNCIA</h2>
+                <p>© 2025 AGORASOU</p>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+</body>
+
+</html>

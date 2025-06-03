@@ -1,0 +1,612 @@
+/* ======================== */
+/* ESTILOS GERAIS DA PÁGINA */
+/* ======================== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #ffffff;
+}
+
+/* ========================== */
+/* SEÇÃO: Banner Mobile Topo */
+/* ========================== */
+.container-banner-agorasou {
+    position: relative;
+    width: 100%;
+    line-height: 0;
+}
+
+.banner-mobile-agorasou {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 400px;
+    border-radius: 12px;
+}
+
+.botao-comprar-mobile {
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    transform: translateX(-50%);
+    background-color: #61c08c;
+    color: white;
+    padding: 55px 40px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* ======================== */
+/* SEÇÃO: Texto Principal  */
+/* ======================== */
+.texto-agorasou-section {
+    text-align: center;
+    padding: 30px 10px;
+    max-width: 1200px;
+    margin: 0;
+}
+
+.texto-agorasou-section h1 {
+    font-size: 35px;
+    font-weight: bold;
+    letter-spacing: 0.8px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: #3e3b37;
+    margin-bottom: 10px;
+}
+
+.Sub-texto {
+    font-size: 18px;
+}
+
+.paragrago-texto-desktop {
+    font-size: 15px;
+    color: #3e3b37;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.verde {
+    color: #61C08C;
+}
+
+.verde-escuro {
+    color: #6BB36D;
+}
+
+/* ============================ */
+/* SEÇÃO: Banners Intermediários */
+/* ============================ */
+.container-banner-agorasous {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+}
+
+/* ============================ */
+/* SEÇÃO: Descrição de Produtos */
+/* ============================ */
+.descricao-produto {
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.descricao-produto h2 {
+    color: #52B788;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.descricao-produto strong {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.descricao-produto ul {
+    list-style-type: disc;
+    margin: 10px 0;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.observacao {
+    font-size: 12px;
+    color: #666;
+    margin: 10px 0;
+}
+
+.botao-confira {
+    display: block;
+    background-color: #52B788;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.botoes-empilhados {
+    margin-top: 15px;
+}
+
+
+/* ============================ */
+/* SEÇÃO: Banner Mercado Livre */
+/* ============================ */
+.container-banner-mercadolivre {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    flex-wrap: wrap;
+
+}
+
+.banner-produtos-mercadolivre {
+    max-height: 600px;
+    height: auto;
+}
+
+.conteudo-mercadolivre {
+    color: #333;
+    margin-top: -50px;
+    /* Substitui o uso de top: -XXXpx */
+}
+
+.titulo-desconto-mercadolivre {
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+.observacao-desconto-mercadolivre {
+    font-size: 14px;
+    color: #555;
+
+    line-height: 1.5;
+}
+
+.botao-comprar-mercadolivre {
+    background-color: #55b187;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.botao-comprar-mercadolivre:hover {
+    background-color: #469d75;
+}
+
+
+
+
+/* ================ */
+/* RESPONSIVIDADE   */
+/* ================ */
+@media (max-width: 768px) {
+    .texto-agorasou-section h1 {
+        font-size: 28px;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    .Sub-texto {
+        font-size: 16px;
+    }
+
+    .texto-agorasou-section p,
+    .descricao-produto ul,
+    .descricao-produto {
+        font-size: 14px;
+    }
+
+    .botao-comprar-mobile {
+        font-size: 14px;
+        padding: 12px 30px;
+    }
+
+    .botao-confira {
+        font-size: 14px;
+        padding: 8px 18px;
+    }
+
+    .container-banner-mercadolivre {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffffff;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .banner-produtos-mercadolivre {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin-top: -30px;
+    }
+
+    .descricao-produto-mercadolivre {
+        margin-top: -90px;
+        position: relative;
+        left: -94px;
+    }
+
+    .titulo-desconto-mercadolivre {
+        font-size: 13px !important;
+        font-weight: bold;
+        margin-top: -90px;
+
+    }
+
+    .observacao-desconto-mercadolivre {
+        font-size: 9px !important;
+        padding: 10px;
+        color: #555;
+        line-height: 1.4;
+        margin-top: -90px;
+        position: relative;
+        bottom: -100px;
+    }
+
+    .botoes-mercadolivre {
+        margin-top: -20px;
+        margin-left: -10px;
+        position: relative;
+        left: -90px;
+        top: -15px;
+    }
+
+    .botao-comprar-mercadolivre {
+        background-color: #fff01e;
+        color: #000;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 10px !important;
+    }
+
+    /* CArrossel*/
+
+    .linha-pistache {
+        padding: 40px 20px;
+        text-align: center;
+        background: #fff;
+    }
+
+    .linha-pistache h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .produtos-container {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 16px;
+        padding: 10px 0;
+        margin-top: 40px;
+    }
+
+    .produto {
+        min-width: 250px;
+        max-width: 250px;
+        background: #f8f8f8;
+        border-radius: 8px;
+        padding: 16px;
+        scroll-snap-align: start;
+        flex: 0 0 auto;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .produto img {
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+    }
+
+    .produto p {
+        font-size: 12px;
+        color: #555;
+        margin: 5px 0;
+    }
+
+    .produto strong {
+        font-size: 14px;
+        display: block;
+        margin: 5px 0 10px;
+    }
+
+    .produto button {
+        background-color: #62c58d;
+        color: white;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 18px;
+    }
+
+    .opcoes-lojas {
+        gap: 12px;
+    }
+
+    .opcoes-lojas img {
+        max-width: 100px;
+    }
+
+    .fechar-modal {
+        font-size: 24px;
+    }
+
+
+
+
+}
+
+@media (max-width: 480px) {
+    .paragrago-texto-desktop {
+        display: none;
+    }
+
+    .texto-agorasou-section h1 {
+        font-size: 24px;
+    }
+
+    .Sub-texto {
+        font-size: 14px;
+    }
+
+    .botao-comprar-mobile {
+        font-size: 12px;
+        padding: 17px 12px;
+    }
+
+    .descricao-produto h2 {
+        font-size: 18px;
+    }
+
+    .descricao-produto ul {
+        padding-left: 16px;
+    }
+
+    .titulo-desconto-mercadolivre {
+        font-size: 18px;
+    }
+
+    .observacao-desconto-mercadolivre {
+        font-size: 13px;
+
+    }
+
+    .botao-comprar-mercadolivre {
+        font-size: 13px;
+        padding: 10px 20px;
+    }
+}
+
+
+/* ============================= */
+/* MODAL DE OPÇÕES DE COMPRA    */
+/* ============================= */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease-in-out;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 24px;
+    width: 95%;
+    max-width: 360px;
+    border-radius: 20px;
+    text-align: center;
+    animation: fadeInCenter 0.4s ease;
+    color: white;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.65);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: overlay;
+}
+
+@keyframes fadeInCenter {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.fechar-modal {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    font-size: 26px;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.modal-content h3 {
+    font-size: 20px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    color: #fff;
+}
+
+.opcoes-lojas {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.opcoes-lojas a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    padding: 12px;
+    border: 2px solid white;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    text-decoration: none;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.opcoes-lojas a:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+.opcoes-lojas img {
+    max-width: 50px;
+    height: auto;
+    margin-bottom: 6px;
+}
+
+/* TABLET (≤768px) */
+@media only screen and (max-width: 768px) {
+    .modal-content {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        width: 90%;
+    }
+
+    .fechar-modal {
+        font-size: 22px;
+        top: 10px;
+        right: 15px;
+    }
+
+    .opcoes-lojas a {
+        width: 100%;
+        max-width: 260px;
+    }
+
+    .opcoes-lojas img {
+        max-width: 45px;
+    }
+}
+
+/* MOBILE (≤480px) */
+@media only screen and (max-width: 480px) {
+    .modal-content {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 9px;
+        width: 75%;
+    }
+
+    .fechar-modal {
+        font-size: 20px;
+        top: 8px;
+        right: 12px;
+    }
+
+    .opcoes-lojas a {
+        width: 100%;
+        max-width: 240px;
+    }
+
+    .opcoes-lojas img {
+        max-width: 40px;
+    }
+}
+
+/* FOOOTER */
+.footer-mobile {
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    font-family: sans-serif;
+}
+
+.footer-bg {
+    position: relative;
+    width: 100%;
+}
+
+.footer-bg img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.footer-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 0 5px #000;
+}
+
+.footer-center h2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Se necessário, corta com "..." */
+    font-size: 1rem;
+    /* Diminui para caber em telas menores */
+}
+
+.footer-center p {
+    font-size: 14px;
+    margin: 0;
+    opacity: 0.8;
+}
