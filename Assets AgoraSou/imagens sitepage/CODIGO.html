@@ -1,0 +1,225 @@
+<div
+    style="display: flex; flex-direction: column; align-items: center; margin-top: 60px; position: relative; top: 30px;">
+    <h1 style="font-size: 18px; color: #3cb179; font-weight: bold; margin-bottom: 8px; text-align: center;">
+        Conheça nossa linha completa
+    </h1>
+    <p style="font-size: 35px; color: #555; margin: 0; text-align: center;">
+        Linha Longo Pistache
+    </p>
+</div>
+
+
+
+<section class="linha-pistache">
+
+    <div class="produtos-container">
+
+        <div class="produto" id="produtos-pistache-kit">
+            <img src="https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/KITVENDAPISTACHEMOBILE.png?raw=true"
+                alt="Kit Pistache">
+            <p>AGORASOU</p>
+            <strong>Linha longo Pistache Kit Completo Crescimento</strong>
+            <button onclick="abrirModal('kit')" style="background-color: green;">COMPRAR PRODUTO</button>
+        </div>
+
+        <div class="produto">
+            <img src="https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ELIXIRLIMPEZAMOBILEATUALVENDA.png?raw=true"
+                alt="Elixir de Limpeza">
+            <p>AGORASOU</p>
+            <strong>Linha longo Pistache Elixir de Limpeza</strong>
+            <button onclick="abrirModal('elixir-limpeza') " style="background-color: green;">COMPRAR
+                PRODUTO</button>
+        </div>
+
+        <div class="produto">
+            <img src="https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ELIXIRNUTRICAOMOBILEATUALVENDA.png?raw=true"
+                alt="Elixir de Nutrição">
+            <p>AGORASOU</p>
+            <strong>Linha longo Pistache Elixir de Nutrição</strong>
+            <button onclick="abrirModal('elixir-nutricao')" style="background-color: green;">COMPRAR
+                PRODUTO</button>
+        </div>
+
+        <div class="produto">
+            <img src="https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/LOCAOMOBILEATUALVENDA.png?raw=true"
+                alt="Tônico de Crescimento">
+            <p>AGORASOU</p>
+            <strong>Linha longo Pistache Tônico de Crescimento</strong>
+            <button onclick="abrirModal('tonico')" style="background-color: green;">COMPRAR PRODUTO</button>
+        </div>
+
+
+
+    </div>
+</section>
+
+<!-- Modal Dinâmico -->
+<div id="modal-compra" class="modal">
+    <div class="modal-content">
+        <span class="fechar-modal" onclick="fecharModal()">&times;</span>
+        <h3 id="titulo-produto"></h3>
+        <div class="opcoes-lojas" id="links-lojas">
+            <!-- Links injetados dinamicamente -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const dadosProdutos = {
+        "elixir-limpeza": {
+            titulo: "Elixir De Limpeza<br><span style='font-weight: 300; color: white;'>LINHA LONGO </span><strong style='font-weight: 700; color: #96db95;'>PISTACHE</strong><div style='margin-top: 4px;'><hr style='width: 274px; border: 0.5px solid #939393;'></div><div style='margin-top: 8px; font-weight: 400; color: white;'>Escolher um parceiro de venda!</div><div style='margin-top: 4px; font-weight: 300; color: #ccc;'></div>",
+            imagemFundo: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ELIXIRLIMPEZAMOBILEATUALVENDA.png",
+            links: [
+                {
+                    "nome": "Agora Sou",
+                    "url": "https://agorasou.com",
+                    "img": "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/AgorasouLOGOMODAL.png"
+                },
+                {
+                    "nome": "Mercado Livre",
+                    "url": "https://mercadolivre.com",
+                    "img": "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/MercadoLivreLOGOMODAL.png"
+                },
+                {
+                    "nome": "Shopee",
+                    "url": "https://shopee.com",
+                    "img": "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ShooppeLOGOMODAL.png"
+                }
+            ]
+        },
+
+
+        "elixir-nutricao": {
+            titulo: "Elixir De Nutrição<br><span style='font-weight: 300; color: white;'>LINHA LONGO </span><strong style='font-weight: 700; color: #96db95;'>PISTACHE</strong><div style='margin-top: 4px;'><hr style='width: 274px; border: 0.5px solid #939393;'></div><div style='margin-top: 8px; font-weight: 400; color: white;'>Escolher um parceiro de venda!</div><div style='margin-top: 4px; font-weight: 300; color: #ccc;'></div>",
+            imagemFundo: "https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ELIXIRNUTRICAOMOBILEATUALVENDA.png?raw=true",
+            links: [
+                {
+                    nome: "Agora Sou",
+                    url: "https://agorasou.com",
+                    img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/AgorasouLOGOMODAL.png"
+                },
+
+                {
+                    nome: "Mercado Livre",
+                    url: "https://mercadolivre.com",
+                    img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/MercadoLivreLOGOMODAL.png"
+                },
+
+                {
+                    nome: "Shopee",
+                    url: "https://shopee.com",
+                    img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ShooppeLOGOMODAL.png"
+                }
+            ]
+        },
+
+        "tonico": {
+            titulo: "Tônico de Crescimento<br><span style='font-weight: 300; color: white;'>LINHA LONGO </span><strong style='font-weight: 700; color: #96db95;'>PISTACHE</strong><div style='margin-top: 4px;'><hr style='width: 274px; border: 0.5px solid #939393;'></div><div style='margin-top: 8px; font-weight: 400; color: white;'>Escolher um parceiro de venda!</div><div style='margin-top: 4px; font-weight: 300; color: #ccc;'></div>",
+            imagemFundo: "https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/LOCAOMOBILEATUALVENDA.png?raw=true",
+            links: [
+                {
+                    nome: "Agora Sou",
+                    url: "https://agorasou.com",
+                    img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/AgorasouLOGOMODAL.png"
+                },
+
+                {
+                    nome: "Mercado Livre",
+                    url: "https://mercadolivre.com",
+                    img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/MercadoLivreLOGOMODAL.png"
+                },
+
+                {
+                    nome: "Shopee",
+                    url: "https://shopee.com",
+                    img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ShooppeLOGOMODAL.png"
+                }
+            ]
+        },
+
+        "kit": {
+            titulo: "Kit Linha Cresimento<br><span style='font-weight: 300; color: white;'>LINHA LONGO </span><strong style='font-weight: 700; color: #96db95;'>PISTACHE</strong><div style='margin-top: 4px;'><hr style='width: 274px; border: 0.5px solid #939393;'></div><div style='margin-top: 8px; font-weight: 400; color: white;'>Escolher um parceiro de venda!</div><div style='margin-top: 4px; font-weight: 300; color: #ccc;'></div>",
+            imagemFundo: "https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/KITVENDAPISTACHEMOBILE.png?raw=true",
+            links: [
+                {
+                    nome: "Agora Sou",
+                    url: "https://agorasou.com",
+                    img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/AgorasouLOGOMODAL.png"
+                },
+
+                {
+                    nome: "Mercado Livre",
+                    url: "https://mercadolivre.com",
+                    img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/MercadoLivreLOGOMODAL.png"
+                },
+
+                {
+                    nome: "Shopee",
+                    url: "https://shopee.com",
+                    img: "https://raw.githubusercontent.com/rdriguezFXR/AgoraSou---Assets/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/ShooppeLOGOMODAL.png"
+                }
+            ]
+        },
+        // Adicione os demais produtos aqui com imagemFundo também
+    };
+
+    function abrirModal(idProduto) {
+        const modal = document.getElementById("modal-compra");
+        const titulo = document.getElementById("titulo-produto");
+        const linksContainer = document.getElementById("links-lojas");
+        const modalContent = document.querySelector(".modal-content");
+
+        const produto = dadosProdutos[idProduto];
+        titulo.innerHTML = produto.titulo;
+        linksContainer.innerHTML = "";
+
+        modalContent.style.background = `rgba(0, 0, 0, 0.65) url('${produto.imagemFundo}') center/cover no-repeat`;
+        modalContent.style.backgroundBlendMode = "overlay";
+
+        produto.links.forEach(link => {
+            const a = document.createElement("a");
+            a.href = link.url;
+            a.target = "_blank";
+
+            const img = document.createElement("img");
+            img.src = link.img;
+            img.alt = link.nome;
+
+            const nome = document.createElement("span");
+            nome.innerText = link.nome;
+            nome.style.color = "#fff";
+            nome.style.display = "block";
+            nome.style.marginTop = "6px";
+            nome.style.fontWeight = "500";
+
+            a.appendChild(img);
+            a.appendChild(nome);
+            linksContainer.appendChild(a);
+        });
+
+        modal.style.display = "block";
+    }
+
+    function fecharModal() {
+        document.getElementById("modal-compra").style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        const modal = document.getElementById("modal-compra");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+</script>
+
+
+<section class="footer-mobile">
+    <div class="footer-bg">
+        <img src="https://github.com/rdriguezFXR/AgoraSou---Assets/blob/main/Assets%20AgoraSou/ASSTES%20AGORASOU%20WEB/footerMobileAtual.png?raw=true"
+            alt="AGORASOU Footer">
+        <div class="footer-center">
+            <h2>A BELEZA QUE REFLETE SUA ESSÊNCIA</h2>
+            <p>© 2025 AGORASOU</p>
+        </div>
+    </div>
+</section>
